@@ -1,5 +1,5 @@
 package com.tekup.school.entities;
 
-public class Test {
+public class Blabla {
 
 }
