@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.tekup.school.entities.Classe;
 import com.tekup.school.entities.Student;
+import com.tekup.school.repository.ClasseRepository;
 import com.tekup.school.repository.StudentRepository;
 
 @RestController
@@ -23,13 +25,15 @@ public class StudentController {
 
 @Autowired
 StudentRepository studentRepository;
+@Autowired
+ClasseRepository classeRepository;
 
 @PostMapping("/add")
 public Student createStudent(@RequestBody Student student) {
 	return studentRepository.save(student);
 }
 @DeleteMapping("/delete/{id}")
-public ResponseEntity<Long> Student(@PathVariable(value="id") Long id) throws ResourceNotFoundException{
+public ResponseEntity<Long> deleteStudent(@PathVariable(value="id") Long id) throws ResourceNotFoundException{
 	Student student= studentRepository.findById(id).orElseThrow(
 			()-> new ResourceNotFoundException("Student not found for this id "+id));
 	studentRepository.delete(student);
@@ -39,6 +43,12 @@ public ResponseEntity<Long> Student(@PathVariable(value="id") Long id) throws Re
 @GetMapping("/search/{firstname}")
 public List<Student> findStudentByFirstname(@PathVariable(value="firstname") String firstname){
 	return studentRepository.findByFirstNameContains(firstname);
+}
+@GetMapping("/searchclasse/{classe}")
+public List<Student> findStudentByClasse(@PathVariable(value="classe") Long classe){
+	return studentRepository.findByClasse(classeRepository.findById(classe));
+	
+
 }
 
 	
