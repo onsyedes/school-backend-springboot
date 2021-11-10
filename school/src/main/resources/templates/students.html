@@ -30,12 +30,12 @@
                   </tr>
                 </thead>
                 <tbody class="list">
-                  <tr th:each="student : ${students}">
+                  <tr th:each="student:${students}">
            
-                    <td th:text={student.adresse}></td>
-                    <td > </td>
-                    <td ></td>
-                    <td> </td>
+                    <td th:text=${student.firstName}>  </td>
+                    <td th:text=${student.LastName}> </td>
+                    <td th:text=${student.Gender}></td>
+                    <td th:text=${student.Classe.classLabel}> </td>
                      <td> </td>
                     <td class="text-right">
                       <div class="dropdown">

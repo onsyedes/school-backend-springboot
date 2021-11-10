@@ -26,14 +26,14 @@ StudentRepository studentRepository;
 ClasseRepository classeRepository;
 
 
-@GetMapping("/")
+@GetMapping("/list")
 	public String findAllstudents(Model model) {
 		
 		List<Student> students= studentRepository.findAll();
 		
 		model.addAttribute("students", students);
 		
-		return "index" ;
+		return "students" ;
 	}
 	
 	@DeleteMapping("/delete/{id}")
