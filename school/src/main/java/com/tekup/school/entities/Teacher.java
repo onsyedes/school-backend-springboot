@@ -2,6 +2,8 @@ package com.tekup.school.entities;
 
 
 import java.util.List;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -19,7 +21,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Teacher extends Person {
 	
+	
+	@Column
 	private String email;
+	@Column
 	private String pwd;
 	
 	@ManyToMany(mappedBy = "teachers")

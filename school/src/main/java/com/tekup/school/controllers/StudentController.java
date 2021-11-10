@@ -4,25 +4,20 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
 
-import com.tekup.school.entities.Classe;
 import com.tekup.school.entities.Student;
 import com.tekup.school.repository.ClasseRepository;
 import com.tekup.school.repository.StudentRepository;
 
-@RestController
-//@RequestMapping("/students")
+@Controller
+@RequestMapping("/students")
 public class StudentController {
 
 @Autowired
@@ -31,41 +26,53 @@ StudentRepository studentRepository;
 ClasseRepository classeRepository;
 
 
-/*
-@GetMapping("/students_list")
-public ModelAndView showStudents(Model model) {
+@GetMapping("/")
+	public String findAllstudents(Model model) {
+		
+		List<Student> students= studentRepository.findAll();
+		
+		model.addAttribute("students", students);
+		
+		return "index" ;
+	}
 	
-	 
-}
-*/
-
-
-
-@PostMapping("/add")
-public Student createStudent(@RequestBody Student student) {
-	return studentRepository.save(student);
-}
-
-
-@PostMapping("/update")
-public Student updateStudent(@RequestBody Student student) {
-	return studentRepository.save(student);
-}
-@DeleteMapping("/delete/{id}")
-public ResponseEntity<Student> deleteStudent(@PathVariable(value="id") Long id) throws ResourceNotFoundException{
-	Student student= studentRepository.findById(id).orElseThrow(
-			()-> new ResourceNotFoundException("Student not found for this id "+id));
-	studentRepository.delete(student);
-	return new ResponseEntity<>(student, HttpStatus.OK);
+	@DeleteMapping("/delete/{id}")
+	public String deleteStudent(@PathVariable(value="id") Long id) throws ResourceNotFoundException{
+		Student student = studentRepository.findById(id).orElseThrow(
+				()-> new ResourceNotFoundException("student not found for this id "+id));
+		studentRepository.delete(student);
+		return "redirect:/";
+		
+	}
 	
-}
-@GetMapping("/search/{firstname}")
-public List<Student> findStudentByFirstname(@PathVariable(value="firstname") String firstname){
-	return studentRepository.findByFirstNameContains(firstname);
-}
+	
+	@PostMapping("/student/{id}")
+	public String uptadestudent(Model model , @PathVariable("id") Long id) {
+		
+		Student student = studentRepository.findById(id).orElseThrow(
+				()-> new ResourceNotFoundException("student not found for this id "+id));
+		
+		model.addAttribute("student",student);
+		studentRepository.save(student);
+		return"redirect:/";
+		
+	}
+	
+	@PostMapping("/addstudent")
+	public String addstudent(Model model) {
+		
+		Student student = new Student();
+		model.addAttribute("student", student);
+		studentRepository.save(student);
+		return "redirect:/";
+	}
+	
+	
 @GetMapping("/searchclasse/{classe}")
-public List<Student> findStudentByClasse(@PathVariable(value="classe") Long classe){
-	return studentRepository.findByClasse(classeRepository.findById(classe));
+public String findStudentByClasse(@PathVariable(value="classe") Long classe){
+	
+	List<Student> listeStudent =studentRepository.findByClasse(classeRepository.findById(classe));
+			return "redirect:/"; 
 }
 
 	
