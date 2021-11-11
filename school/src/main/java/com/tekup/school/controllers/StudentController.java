@@ -45,12 +45,18 @@ public ModelAndView showStudents(Model model) {
 public Student createStudent(@RequestBody Student student) {
 	return studentRepository.save(student);
 }
+
+
+@PostMapping("/update")
+public Student updateStudent(@RequestBody Student student) {
+	return studentRepository.save(student);
+}
 @DeleteMapping("/delete/{id}")
-public ResponseEntity<Long> deleteStudent(@PathVariable(value="id") Long id) throws ResourceNotFoundException{
+public ResponseEntity<Student> deleteStudent(@PathVariable(value="id") Long id) throws ResourceNotFoundException{
 	Student student= studentRepository.findById(id).orElseThrow(
 			()-> new ResourceNotFoundException("Student not found for this id "+id));
 	studentRepository.delete(student);
-	return new ResponseEntity<>(id, HttpStatus.OK);
+	return new ResponseEntity<>(student, HttpStatus.OK);
 	
 }
 @GetMapping("/search/{firstname}")
@@ -60,8 +66,6 @@ public List<Student> findStudentByFirstname(@PathVariable(value="firstname") Str
 @GetMapping("/searchclasse/{classe}")
 public List<Student> findStudentByClasse(@PathVariable(value="classe") Long classe){
 	return studentRepository.findByClasse(classeRepository.findById(classe));
-	
-
 }
 
 	
