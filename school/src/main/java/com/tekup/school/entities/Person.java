@@ -31,7 +31,7 @@ public class Person {
 	@Column
 	private String birthdate;
 	@Column
-	private Role role;
+	private String role;
 	@Column
 	private String picture;
 	
