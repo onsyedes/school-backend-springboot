@@ -38,6 +38,8 @@ public class Classe {
 	
 	@OneToMany(mappedBy = "classe")
 	private List<Student> students ;
+	
+	
 
 
 }

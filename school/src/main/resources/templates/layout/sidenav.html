@@ -14,7 +14,9 @@
 			<!-- Brand -->
 			<div class="sidenav-header  align-items-center">
 				<a class="navbar-brand" href="javascript:void(0)"> <img
-					src="assets/img/brand/logo.png" class="navbar-brand-img" alt="...">
+					th:href="@{../assets/img/brand/logo.png}"
+					src="../assets/img/brand/logo.png" class="navbar-brand-img"
+					alt="...">
 				</a>
 			</div>
 			<div class="navbar-inner">
@@ -26,72 +28,64 @@
 							href="examples/dashboard.html"> <i
 								class="ni ni-tv-2 text-primary"></i> <span class="nav-link-text">Dashboard</span>
 						</a></li>
-						
+
 						<!-- Users -->
 						<div class="btn-group dropright nav-item">
-						
+
 							<button type="button" class="btn  dropdown-toggle"
 								data-toggle="dropdown" aria-haspopup="true"
 								aria-expanded="false">
-								<i class="fas fa-users  text-orange"></i>
-								<span class="nav-link-text">Users</span>
-								</button>
-							<div class="dropdown-menu">
-								<a class="dropdown-item" href="/students/list">Students</a> <a
-									class="dropdown-item" href="#">Teachers</a>
-							</div>
-						</div>
-						<!-- Years/Classes -->
-							
-						<li class="nav-item"><a class="nav-link"
-							href="#"> <i class="ni ni-building text-primary"></i>
-								<span class="nav-link-text">Years/Classes</span>
-						</a></li>
-						
-						<!-- Absences -->
-						<div class="btn-group dropright nav-item">
-						
-							<button  class="btn  dropdown-toggle"
-								data-toggle="dropdown" aria-haspopup="true"
-								aria-expanded="false">
-								<i class="fas fa-calendar-times text-default"></i>
-								<span class="nav-link-text">Absences</span>
-								</button>
+								<i class="fas fa-users  text-orange"></i> <span
+									class="nav-link-text">Users</span>
+							</button>
 							<div class="dropdown-menu">
 								<a class="dropdown-item" href="#">Students</a> <a
 									class="dropdown-item" href="#">Teachers</a>
 							</div>
 						</div>
-					
-					<!-- Subjects -->
-					<li class="nav-item">
-					<a class="nav-link"
-						href="#"> <i class="ni ni-ruler-pencil text-info"></i>
-						<span class="nav-link-text">Subjects/Classes</span>
-					</a></li>
-					
-						
-						
-						
+						<!-- Classes -->
+						<li class="nav-item"><a class="nav-link" href="#"> <i
+								class="ni ni-building text-primary"></i> <span
+								class="nav-link-text">Classes</span>
+						</a></li>
+
+
+						<!-- Absences -->
+						<div class="btn-group dropright nav-item">
+
+							<button class="btn  dropdown-toggle" data-toggle="dropdown"
+								aria-haspopup="true" aria-expanded="false">
+								<i class="fas fa-calendar-times text-default"></i> <span
+									class="nav-link-text">Absences</span>
+							</button>
+							<div class="dropdown-menu">
+								<a class="dropdown-item" href="#">Students</a> <a
+									class="dropdown-item" href="#">Teachers</a>
+							</div>
+						</div>
+
+						<!-- Subjects -->
+						<li class="nav-item"><a class="nav-link" href="#"> <i
+								class="ni ni-ruler-pencil text-info"></i> <span
+								class="nav-link-text">Subjects/Classes</span>
+						</a></li>
+
+
+
+
 						<!--Events  -->
-					<li class="nav-item"><a class="nav-link"
-							href="#"> 
-							<i class="fas fa-calendar-check text-pink"></i>
-								 <span class="nav-link-text">Events</span>
+						<li class="nav-item"><a class="nav-link" href="#"> <i
+								class="fas fa-calendar-check text-pink"></i> <span
+								class="nav-link-text">Events</span>
 						</a></li>
 						<!-- Launch -->
-							<li class="nav-item"><a class="nav-link"
-							href="#"> 
-							<i class="fas fa-utensils text-yellow"></i>
-							
-								 <span class="nav-link-text">Lunch</span>
+						<li class="nav-item"><a class="nav-link" href="#"> <i
+								class="fas fa-utensils text-yellow"></i> <span
+								class="nav-link-text">Lunch</span>
 						</a></li>
 						<!--  -->
+
 						
-						<li class="nav-item"><a class="nav-link"
-							href="examples/upgrade.html"> <i class="ni ni-send text-dark"></i>
-								<span class="nav-link-text">Upgrade</span>
-						</a></li>
 					</ul>
 					<!-- Divider -->
 					<hr class="my-3">
