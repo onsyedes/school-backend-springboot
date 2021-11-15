@@ -77,8 +77,9 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-jdbc</artifactId>
-
 		</dependency>
+
+
 		<!-- thymeleaf dependency -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -89,6 +90,11 @@
 			<groupId>nz.net.ultraq.thymeleaf</groupId>
 			<artifactId>thymeleaf-layout-dialect</artifactId>
 		</dependency>
+
+
+
+
+
 
 	</dependencies>
 

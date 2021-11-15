@@ -8,11 +8,11 @@
   <!-- Fonts -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700">
   <!-- Icons -->
-  <link rel="stylesheet" th:href="@{../../assets/vendor/nucleo/css/nucleo.css}" type="text/css">
-  <link rel="stylesheet" href="../../assets/vendor/@fortawesome/fontawesome-free/css/all.min.css" th:href="@{../assets/vendor/@fortawesome/fontawesome-free/css/all.min.css}" type="text/css">
+  <link rel="stylesheet" th:href="@{../../../../assets/vendor/nucleo/css/nucleo.css}" type="text/css">
+  <link rel="stylesheet"  th:href="@{../../../../assets/vendor/@fortawesome/fontawesome-free/css/all.min.css}" type="text/css">
   <!-- Page plugins -->
   <!-- Argon CSS -->
-  <link rel="stylesheet" href="../../assets/css/argon.css?v=1.2.0" th:href="@{../../assets/css/argon.css?v=1.2.0}" type="text/css">
+  <link rel="stylesheet" th:href="@{../../../../assets/css/argon.css?v=1.2.0}" type="text/css">
 </head>
 
 <body>
@@ -30,19 +30,25 @@
     <!-- Header -->
     <div class="header bg-primary pb-6">
       <div class="container-fluid">
-        <div class="header-body" layout:fragment="header-body">
+        <div class="header-body">
           <div class="row align-items-center py-4">
             <div class="col-lg-6 col-7">
-              <h6 class="h2 text-white d-inline-block mb-0">Default</h6>
+              
               <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
                 <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
                   <li class="breadcrumb-item"><a href="#"><i class="fas fa-home"></i></a></li>
-                  <li class="breadcrumb-item"><a href="#">Dashboards</a></li>
-                  <li class="breadcrumb-item active" aria-current="page">Default</li>
+                  <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+                  
+                  <li th:each="path : ${path}" class="breadcrumb-item active" aria-current="page" >
+                  <a th:text="${path.key}" 
+                  th:href="@{${path.value}}" >--</a>
+                  </li>
+                
+                  
                 </ol>
               </nav>
             </div>
-            <div class="col-lg-6 col-5 text-right">
+            <div class="col-lg-6 col-5 text-right" layout:fragment="new_filters">
               <a href="#" class="btn btn-sm btn-neutral">New</a>
               <a href="#" class="btn btn-sm btn-neutral">Filters</a>
             </div>
@@ -68,16 +74,16 @@
   <!-- End page content -->
   <!-- Argon Scripts -->
   <!-- Core -->
-  <script src="../../assets/vendor/jquery/dist/jquery.min.js" th:href="@{../../assets/vendor/jquery/dist/jquery.min.js}"></script>
-  <script src="../../assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js" th:href="@{../../assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js}"></script>
-  <script src="../../assets/vendor/js-cookie/js.cookie.js" th:href="@{../assets/vendor/js-cookie/js.cookie.js}"></script>
-  <script src="../../assets/vendor/jquery.scrollbar/jquery.scrollbar.min.js" th:href="@{../../assets/vendor/jquery.scrollbar/jquery.scrollbar.min.js}"></script>
-  <script src="../../assets/vendor/jquery-scroll-lock/dist/jquery-scrollLock.min.js"  th:href="@{../../assets/vendor/jquery-scroll-lock/dist/jquery-scrollLock.min.js}"></script>
+  <script src="../../../../assets/vendor/jquery/dist/jquery.min.js" th:src="@{../../../../assets/vendor/jquery/dist/jquery.min.js}"></script>
+  <script  th:src="@{../../../../assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js}"></script>
+  <script  th:src="@{../../../../assets/vendor/js-cookie/js.cookie.js}"></script>
+  <script  th:src="@{../../../../assets/vendor/jquery.scrollbar/jquery.scrollbar.min.js}"></script>
+  <script  th:src="@{../../../../assets/vendor/jquery-scroll-lock/dist/jquery-scrollLock.min.js}"></script>
   <!-- Optional JS -->
-  <script  src="../../assets/vendor/chart.js/dist/Chart.min.js"   th:href="@{../../assets/vendor/chart.js/dist/Chart.min.js}"></script>
-  <script src="../../assets/vendor/chart.js/dist/Chart.extension.js" th:href="@{../../assets/vendor/chart.js/dist/Chart.extension.js}"></script>
+  <script th:src="@{../../../../assets/vendor/chart.js/dist/Chart.min.js}"></script>
+  <script  th:src="@{../../../../assets/vendor/chart.js/dist/Chart.extension.js}"></script>
   <!-- Argon JS -->
-  <script src="../../assets/js/argon.js?v=1.2.0" th:href="@{../../assets/js/argon.js?v=1.2.0}"></script>
+  <script  th:src="@{../../../../assets/js/argon.js?v=1.2.0}"></script>
   <!-- -Add Class modal -->
 
  <div  th:replace="/layout/modals.html :: modals"></div>

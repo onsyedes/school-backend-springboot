@@ -25,6 +25,7 @@ public class Classe {
 	private Long idClasse;
 	private String classLabel;
 	private int grade;
+	private String ScolaticYear;
 	
 	@ManyToMany
 	@JoinTable(
