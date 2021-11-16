@@ -16,7 +16,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.tekup.school.entities.Classe;
 import com.tekup.school.entities.Student;
@@ -103,6 +107,36 @@ public class ClasseController {
 		model.addAttribute("path", path);
 		return "classes";
 		
+	}
+	
+	@PostMapping("/addnew")
+	public String addNewClass(Classe classe) {
+		classServ.addClass(classe);
+		return "redirect:/classes/";
+	}
+	@GetMapping("/getclass/{id}")
+	@ResponseBody
+	public Optional<Classe> GetClassById(@PathVariable(value="id") Long id){
+		return classeRepo.findById(id);
+	}
+	
+	
+	@RequestMapping(value="/update",method= {RequestMethod.PUT, RequestMethod.GET})
+	public String updateClass(Classe classe) {
+		classServ.updateClass(classe);
+		return "redirect:/classes/";
+	}
+	
+	@RequestMapping(value="/delete/{id}", method = {RequestMethod.DELETE, RequestMethod.GET})
+	public String deleteClasse(@PathVariable(value="id") Long id , RedirectAttributes redirectAttr) {
+		List<Student> students= studentRepository.findByClasse(classeRepo.findById(id));
+		if(students.size() == 0) {
+				classServ.deleteClass(id);
+				redirectAttr.addFlashAttribute("result", "ok");
+		}else {
+			redirectAttr.addFlashAttribute("result", "error");
+		}
+		return "redirect:/classes/";
 	}
 	
 	
