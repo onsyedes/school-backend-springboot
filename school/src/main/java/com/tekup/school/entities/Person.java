@@ -1,10 +1,14 @@
 package com.tekup.school.entities;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 import com.tekup.school.Role;
 
@@ -29,7 +33,8 @@ public class Person {
 	@Column
 	private String gender;
 	@Column
-	private String birthdate;
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
+	private Date birthdate;
 	@Column
 	private String role;
 	@Column

@@ -1,67 +1,103 @@
 package com.tekup.school.controllers;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.tekup.school.entities.Classe;
 import com.tekup.school.entities.Teacher;
+import com.tekup.school.repository.ClasseRepository;
 import com.tekup.school.repository.TeacherRepository;
 
 @Controller
-@RequestMapping("/teachers")
+@RequestMapping("/")
 
 public class TeacherController {
-	@Autowired
-	TeacherRepository teacherRepo;
-	
-	/*@GetMapping("/teachers")
-	public String findAllTeachers(Model model) {
+
+@Autowired
+TeacherRepository teacherRepository;
+@Autowired
+ClasseRepository classeRepository;
+
+
+@GetMapping("/teacherslist")
+	public String findAllteachers(Model model) {
 		
-		List<Teacher> teachers= teacherRepo.findAll();
+		List<Teacher> teachers= teacherRepository.findAll();
 		
 		model.addAttribute("teachers", teachers);
 		
-		return "index" ;
-	}*/
+		return "teachers" ;
+	}
 	
-	@DeleteMapping("/delete/{id}")
-	public String deleteTeacher(@PathVariable(value="id") Long id) throws ResourceNotFoundException{
-		Teacher teacher = teacherRepo.findById(id).orElseThrow(
-				()-> new ResourceNotFoundException("Teacher not found for this id "+id));
-		teacherRepo.delete(teacher);
+	@GetMapping("deleteteacher/{id}")
+	public String deleteteacher(@PathVariable(value="id") Long id) throws ResourceNotFoundException{
+		Teacher teacher = teacherRepository.findById(id).orElseThrow(
+				()-> new ResourceNotFoundException("teacher not found for this id "+id));
+		teacherRepository.delete(teacher);
 		return "redirect:/";
 		
 	}
 	
 	
-	@PostMapping("/teacher/{id}")
-	public String uptadeTeacher(Model model , @PathVariable("id") Long id) {
-		
-		Teacher teacher = teacherRepo.findById(id).orElseThrow(
-				()-> new ResourceNotFoundException("Teacher not found for this id "+id));
-		
-		model.addAttribute("teacher",teacher);
-		teacherRepo.save(teacher);
-		return"redirect:/";
-		
-	}
 	
-	@PostMapping("/addteacher")
-	public String addTeacher(Model model) {
+	
+	@PostMapping("updateteacher/{id}")
+    public String updateteacher(@PathVariable("id") long id, Teacher teacher,
+        Model model) {
+       
+		teacher.setRole("teacher");
+		teacher.setIdPerson(id);
+        teacherRepository.save(teacher);
+        model.addAttribute("teachers", teacherRepository.findAll());
+        return "redirect:/";
+    }
+	
+	@GetMapping("editteacher/{id}")
+    public String showUpdateForm(@PathVariable("id") long id, Model model) {
+		Teacher teacher = teacherRepository.findById(id).orElseThrow(
+				()-> new ResourceNotFoundException("teacher not found for this id "+id));
+        model.addAttribute("teacher", teacher);
+        return "editteacher";
+    }
+	
+	
+	
+	
+	
+	
+	@RequestMapping(value = "/addteacher", method = { RequestMethod.GET, RequestMethod.POST })
+	public String addteacher(@ModelAttribute("teacher") Teacher teacher,@ModelAttribute("classes") Classe classe) {
 		
-		Teacher teacher = new Teacher();
-		model.addAttribute("teacher", teacher);
-		teacherRepo.save(teacher);
-		return "redirect:/";
-	}
+		teacher.setRole("Teacher");
+		
+		
+		teacherRepository.save(teacher);
 
+		return "redirect:/";
+	}
+	
+	@RequestMapping("/teacheradd")
+	public String teacheradd(Model model) {
+		Teacher teacher = new Teacher();
+		List<Classe> classes =  classeRepository.findAll();
+		model.addAttribute("classes", classes);
+		model.addAttribute("teacher", teacher);
+
+		return "addteacher";
+	}
+	
+	
+
+
+	
 }

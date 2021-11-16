@@ -89,13 +89,13 @@
 
 					<!-- Page content -->
 					<div class="container-fluid mt--6">
-						<form action="#" th:action="@{/addstudent}" th:object="${student}" method="POST">
+						<form action="#"  th:action="@{/updateteacher/{id}(id=${teacher.idPerson})}"  th:object="${teacher}"  method="POST">
 							<div class="container-fluid mt--6">
 								<div class="card">
 									<div class="card-header">
 										<div class="row align-items-center">
 											<div class="col-8">
-												<h3 class="mb-0">Add Student </h3>
+												<h3 class="mb-0">Add Teacher </h3>
 											</div>
 
 										</div>
@@ -140,6 +140,15 @@
 															for="input-last-name">Adresse</label>
 														<input type="text" id="input-last-name" class="form-control"
 															placeholder="adresse" th:field="*{adresse}">
+													</div>
+
+												</div>
+												<div class="col-lg-6">
+													<div class="form-group">
+														<label class="form-control-label"
+															for="input-last-name">Password</label>
+														<input type="text" id="input-last-name" class="form-control"
+															placeholder="adresse" th:field="*{pwd}">
 													</div>
 
 												</div>
