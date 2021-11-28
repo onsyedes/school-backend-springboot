@@ -89,7 +89,7 @@
 
 					<!-- Page content -->
 					<div class="container-fluid mt--6">
-						<form action="#" th:action="@{/addstudent}" th:object="${student}" method="POST">
+						<form action="#"  th:action="@{/update/{id}(id=${student.idPerson})}"  th:object="${student}"  method="POST">
 							<div class="container-fluid mt--6">
 								<div class="card">
 									<div class="card-header">

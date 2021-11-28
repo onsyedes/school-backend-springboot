@@ -8,6 +8,11 @@
 <body>
 
 
+	<div class="col-lg-6 col-5 text-right" layout:fragment="new_filters">
+		<a href="#" class="btn btn-sm btn-neutral" id="addStuddentsToClass"  th:attr="data-classe=${cls.idClasse}">New</a>
+	</div>
+
+
 
 	<!-- Page content -->
 
@@ -21,7 +26,7 @@
 				</div>
 				<!-- Light table -->
 				<div class="table-responsive">
-					<table class="table align-items-center table-flush">
+					<table class="table align-items-center table-flush" >
 						<thead class="thead-light">
 							<tr>
 								<th scope="col" class="sort" data-sort="name"><a
@@ -44,7 +49,7 @@
 								<th scope="col" class="sort" data-sort="status"></th>
 							</tr>
 						</thead>
-						<tbody class="list">
+						<tbody class="list" id="StudentsListTable">
 							<tr th:each="student:${students}">
 
 								<td th:text="${student.firstName}"></td>
@@ -52,36 +57,74 @@
 								<td th:text="${student.gender}"></td>
 								<td></td>
 								<td></td>
-								<td></td>
+								<td class="text-right">
+									<div class="dropdown">
+										<a class="btn btn-sm btn-icon-only text-light" href="#" role="button"
+											data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i
+												class="fas fa-ellipsis-v"></i>
+										</a>
+										<div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+											
+											<span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Transfer student to another classe">
+											<a th:href="@{#}"
+												class="dropdown-item transferStudent"  th:attr="data-firstname=${student.firstName},data-lastname=${student.lastName},data-classe=${student.classe.idClasse},data-idstudent=${student.idPerson}"> <i
+													class="fas fa-exchange-alt text-default"></i>Transfer
+											</a> 
+											</span>
+											|
+											<span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Eliminate student from this classe">
+											<a class="dropdown-item eliminateStudent"
+												th:href="@{/updateStudent-classe/{idPerson}/0/{idClasse} (idPerson=${student.idPerson} , idClasse=${student.classe.idClasse})    }">
+												<i class="fas fa-user-minus text-red"></i>Eliminate
+											</a>
+											</span>
+										</div>
+									</div>
+
+
+								</td>
 
 							</tr>
 
 
 						</tbody>
 					</table>
+				
+					
 				</div>
-				<!-- Card footer -->
+						<!-- Card footer -->
+						
 				<div class="card-footer py-4">
 					<nav aria-label="...">
 						<ul class="pagination justify-content-end mb-0">
-							<li class="page-item disabled"><a class="page-link" href="#"
-								tabindex="-1"> <i class="fas fa-angle-left"></i> <span
-									class="sr-only">Previous</span>
-							</a></li>
-							<li class="page-item active"><a class="page-link" href="#">1</a>
+							<li class="page-item " th:classappend="${currentPage} eq 1 ? disabled : enabled"><a
+									class="page-link"
+									th:href="@{'/classes/' +${cls.idClasse}+ '/studentsList/page/{prevPage}' +'?sortField='+${sortField}+ '&sortDir=' +${sortDir}  (prevPage=${currentPage - 1}) }"
+									tabindex="-1"> <i class="fas fa-angle-left"></i> <span
+										class="sr-only">Previous</span>
+								</a></li>
+							<span th:each="i: ${#numbers.sequence(1,totalPages)}">
+								<li class="page-item " th:classappend="${currentPage} eq ${i} ? active : '' "><a
+										class="page-link"
+										th:href="@{'/classes/'+${cls.idClasse}+'/studentsList/page/' + ${i} + '?sortField='+${sortField}+'&sortDir='+${sortDir} } ">[[${i}]]</a>
+								</li>
+							</span>
+
+
+
+							<li class="page-item" th:classappend="${currentPage} ge ${totalPages} ? disabled : enabled">
+								<a class="page-link"
+									th:href="@{'/classes/'+${cls.idClasse}+'/studentsList/page/{prevPage}'+ '?sortField='+${sortField}+'&sortDir='+${sortDir}  (prevPage=${currentPage +1 })   }">
+									<i class="fas fa-angle-right"></i> <span class="sr-only">Next</span>
+								</a>
 							</li>
-							<li class="page-item"><a class="page-link" href="#">2 <span
-									class="sr-only">(current)</span></a></li>
-							<li class="page-item"><a class="page-link" href="#">3</a></li>
-							<li class="page-item"><a class="page-link" href="#"> <i
-									class="fas fa-angle-right"></i> <span class="sr-only">Next</span>
-							</a></li>
 						</ul>
 					</nav>
 				</div>
 			</div>
 		</div>
 	</div>
-
 </body>
+
+
 </html>

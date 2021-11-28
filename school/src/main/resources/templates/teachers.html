@@ -4,7 +4,7 @@
 		layout:decorate="~{layout/layout.html}">
 <head>
 <meta charset="ISO-8859-1">
-<title>Students list</title>
+<title>Teachers list</title>
 </head>
 <body>
 <!-- Page content -->
@@ -14,7 +14,7 @@
           <div class="card">
             <!-- Card header -->
             <div class="card-header border-0">
-              <h3 class="mb-0">Students list</h3>
+              <h3 class="mb-0">teachers list</h3>
             </div>
             <!-- Light table -->
             <div class="table-responsive">
@@ -30,21 +30,21 @@
                   </tr>
                 </thead>
                 <tbody class="list">
-				<tr th:each="student:${students}">
+				<tr th:each="teacher:${teachers}">
            
-                    <td th:text=${student.firstName}>  </td>
-                    <td th:text=${student.LastName}> </td>
-                    <td th:text=${student.Gender}></td>
+                    <td th:text=${teacher.firstName}>  </td>
+                    <td th:text=${teacher.LastName}> </td>
+                    <td th:text=${teacher.Gender}></td>
                    <td>
                    
-                                    <a th:href="@{/delete/{id}(id=${student.idPerson})}"
+                                    <a th:href="@{/deleteteacher/{id}(id=${teacher.idPerson})}"
                                               class="btn btn-primary">
                                         <i class="fas fa-user-times ml-2"></i>
                                     </a>
                    </td>
                    
                    <td>
-	                                   <a th:href="@{/edit/{id}(id=${student.idPerson})}"
+	                                   <a th:href="@{/editteacher/{id}(id=${teacher.idPerson})}"
                                               class="btn btn-primary">
                                         <i class="fas fa-user-edit ml-2"></i>
                                     </a>

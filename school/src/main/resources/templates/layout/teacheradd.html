@@ -89,13 +89,13 @@
 
 					<!-- Page content -->
 					<div class="container-fluid mt--6">
-						<form action="#" th:action="@{/addstudent}" th:object="${student}" method="POST">
+						<form action="#" th:action="@{/addteacher}" th:object="${teacher}" method="POST">
 							<div class="container-fluid mt--6">
 								<div class="card">
 									<div class="card-header">
 										<div class="row align-items-center">
 											<div class="col-8">
-												<h3 class="mb-0">Add Student </h3>
+												<h3 class="mb-0">Add Teacher </h3>
 											</div>
 
 										</div>
@@ -147,34 +147,8 @@
 
 
 
-												<div class="col-lg-6">
-													<div class="form-group">
-														<label class="form-control-label" for="Role">Classe</label>
-														<select name="Role" class="form-control" id="Role">
-
-															<option th:each="classe : ${classes}"
-																th:value="${classe.id}"
-																th:field="*{Classe.id}"
-																th:text="${classe.classLabel}"></option>
-														</select>
-													</div>
-												</div>
+												
 												<br>
-
-
-
-
-												<div class="col-lg-6">
-
-													<label for="formFile" class="form-label">ajouter une
-														image</label>
-													<input type="file" class="form-control " th:field="*{picture}"
-														id="formFile">
-
-												</div>
-												<br>
-
-
 												<div class="col-lg-6" id="Gender">
 													<div class="form-group">
 														<label class="form-control-label" for="Gender">Gender</label>
@@ -200,6 +174,23 @@
 													</div>
 
 												</div>
+
+
+
+
+
+												<div class="col-lg-6">
+
+													<label for="formFile" class="form-label">Password</label>
+													<input type="text" class="form-control" th:field="*{pwd}"
+														id="formFile">
+
+												</div>
+												<br>
+												
+
+
+												
 
 
 

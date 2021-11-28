@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+
+	layout:decorate="~{layout/layout.html}">
+<head>
+<meta charset="ISO-8859-1">
+<title>Teachers& Subjects</title>
+</head>
+<body>
+
+
+	<div class="col-lg-6 col-5 text-right" layout:fragment="new_filters">
+		<a href="/teachers/" class="btn btn-sm btn-neutral" id="addTeachersAndSub">New</a>
+	</div>
+
+   
+
+	<!-- Page content -->
+
+	<div class="row" layout:fragment="page-content">
+		<div class="col">
+			<div class="card">
+				<!-- Card header -->
+				<div class="card-header border-0">
+					<h3 class="mb-0"></h3>
+            <span th:if="${result} eq 'ok' ">
+						<div class="alert alert-primary alert-dismissible fade show" role="alert">
+							<span class="alert-icon"><i class="ni ni-like-2"></i></span> <span
+								class="alert-text"><strong>Success!</strong> 
+								deleted successfully</span>
+							<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+
+						</div>
+  		</span>
+  			<span th:if="${result} eq 'error'">
+						<div class="alert alert-warning alert-dismissible fade show" role="alert">
+							<span class="alert-icon"><i class="fas fa-exclamation-triangle"></i></span> <span
+								class="alert-text"><strong>Warning!</strong> An Error accured while deleting this field !</span>
+							<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+					</span>
+					
+					
+					
+					
+				</div>
+				<form th:action="@{/classes/teachaers-subjects/{id}/add (id=${classe.idClasse})}" method="post">
+				<!-- Light table -->
+				<div class="table-responsive">
+				
+					<table class="table align-items-center table-flush" >
+						<thead class="thead-light">
+							<tr>
+								<th scope="col" class="sort" data-sort="name"> Teacher</th>
+								<th scope="col" class="sort" data-sort="budget">Subject</th>
+								<th scope="col" class="sort" data-sort="status"></th>
+							</tr>
+						</thead>
+						<tbody class="list" id="teachersAndSubTab">
+						
+							<tr th:each="schoolTeach:${schoolTeach}">
+								<td th:text="${schoolTeach.teacher.firstName} +' '+ ${schoolTeach.teacher.lastName}"></td>
+								<td  th:text="${schoolTeach.subject.subjectLabel}"></td>
+								<td class="text-right">
+									<div class="dropdown">
+										<a class="btn btn-sm btn-icon-only text-light" href="#" role="button"
+											data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i
+												class="fas fa-ellipsis-v"></i>
+										</a>
+										<div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+											 <a class="dropdown-item deleteSchoolTeach"
+												th:href="@{/classes/teachaers-subjects/{idClasse}/delete/{id} (id=${schoolTeach.id} , idClasse=${classe.idClasse})   }">
+												<i class="fas fa-trash-alt text-red"></i>Delete
+											</a>
+										</div>
+									</div>
+
+
+								</td>
+
+							</tr>
+
+
+						</tbody>
+					
+					</table>
+			<div id="savebtn"></div>
+					
+				</div>
+			</form>	
+				<!-- Card footer -->
+				<div class="card-footer py-4">
+					
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

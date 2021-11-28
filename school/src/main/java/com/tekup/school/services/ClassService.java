@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.tekup.school.entities.Classe;
+import com.tekup.school.entities.SchoolTeaching;
 import com.tekup.school.repository.ClasseRepository;
+import com.tekup.school.repository.SchoolTeachingRepository;
 import com.tekup.school.repository.StudentRepository;
 
 @Service
@@ -19,6 +21,8 @@ public class ClassService {
 	ClasseRepository classerepo;
 	@Autowired
 	StudentRepository studentrepo;
+	@Autowired
+	SchoolTeachingRepository schoolTeachRepo;
 
 	public Page<Classe> findPaginated(int pageNo, int pageSize, String sortField, String sortDirection) {
 		Sort sort = sortDirection.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortField).ascending()
@@ -40,7 +44,12 @@ public class ClassService {
 	//Delete a class
 	public void deleteClass(Long id) {
 		classerepo.deleteById(id); }
-			
+	// Delete schoolTeaching 
+	public void deleteSchoolTeachingField(Long id) {
+		  schoolTeachRepo.deleteById(id);
+		
+		
+	}
 	
 	
 }

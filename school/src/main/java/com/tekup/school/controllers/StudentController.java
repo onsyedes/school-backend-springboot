@@ -1,7 +1,6 @@
 package com.tekup.school.controllers;
 
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Controller;
@@ -13,8 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
-import com.tekup.school.Role;
+import org.springframework.web.bind.annotation.ResponseBody;
 import com.tekup.school.entities.Classe;
 import com.tekup.school.entities.Student;
 import com.tekup.school.repository.ClasseRepository;
@@ -91,5 +89,36 @@ public String findStudentByClasse(@PathVariable(value="classe") Long classe){
 			return "redirect:/"; 
 }
 
+@GetMapping("/all")
+@ResponseBody
+public List<Student> getAllstudents(){
 	
+	return studentRepository.findAll();
+}
+
+@RequestMapping(value="/updateStudent-classe/{idStudent}/{idClasse}/{idOldClasse}",method = {RequestMethod.PUT, RequestMethod.GET})
+public String updateStudentClasse(@PathVariable(value="idStudent") Long idStudent
+		, @PathVariable(value="idClasse") Long idClasse
+		, @PathVariable(value="idOldClasse") Long idOldClasse) {
+	
+	Student student = studentRepository.getById(idStudent);
+	if(idClasse != 0) {
+		student.setClasse(classeRepository.getById(idClasse));
+	}else {
+		student.setClasse(null);
+	}
+	
+	studentRepository.save(student);
+	if(idOldClasse !=0) {
+		return "redirect:/classes/"+idOldClasse+"/studentsList";
+	}else {
+		return "redirect:/classes/"+idClasse+"/studentsList";
+	}
+	
+}
+
+
+
+
+
 }

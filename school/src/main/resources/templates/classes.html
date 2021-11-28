@@ -1,17 +1,15 @@
 <!DOCTYPE html>
-<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="~{layout/layout.html}">
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/layout.html}">
+
 <head>
-<meta charset="ISO-8859-1">
-<title>Classes</title>
+	<meta charset="ISO-8859-1">
+	<title>Classes</title>
 </head>
+
 <body>
 	<div class="col-lg-6 col-5 text-right" layout:fragment="new_filters">
-		<a href="#" class="btn btn-sm btn-neutral" data-toggle="modal"
-			data-target="#add_class">New</a> <a href="#"
-			class="btn btn-sm btn-neutral">Filters</a>
+		<a href="#" class="btn btn-sm btn-neutral" data-toggle="modal" data-target="#add_class">New</a> 
 	</div>
-
 	<!-- Page content -->
 	<div class="row" layout:fragment="page-content">
 		<div class="col">
@@ -22,78 +20,68 @@
 				<div class="table-responsive">
 
 					<span th:if="${result} eq 'ok' ">
-						<div class="alert alert-primary alert-dismissible fade show"
-							role="alert">
+						<div class="alert alert-primary alert-dismissible fade show" role="alert">
 							<span class="alert-icon"><i class="ni ni-like-2"></i></span> <span
 								class="alert-text"><strong>Success!</strong> Class
 								deleted successfully</span>
-							<button type="button" class="close" data-dismiss="alert"
-								aria-label="Close">
+							<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 								<span aria-hidden="true">&times;</span>
 							</button>
 
 						</div>
 
 
-					</span> 
+					</span>
 					<span th:if="${result} eq 'error'">
 						<div class="alert alert-warning alert-dismissible fade show" role="alert">
-							<span class="alert-icon"><i
-								class="fas fa-exclamation-triangle"></i></span> <span
+							<span class="alert-icon"><i class="fas fa-exclamation-triangle"></i></span> <span
 								class="alert-text"><strong>Warning!</strong> Cannot
 								delete this class, it contains students</span>
-							<button type="button" class="close" data-dismiss="alert"
-								aria-label="Close">
+							<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 								<span aria-hidden="true">&times;</span>
 							</button>
 						</div>
 					</span>
-					
+
 					<table class="table align-items-center table-flush">
 						<thead class="thead-light">
 							<tr>
 								<th scope="col"><a
-									th:href="'/classes/page/'+ ${currentPage}+'?sortField=grade&sortDir='+${reverseSortDir} ">
+										th:href="'/classes/page/'+ ${currentPage}+'?sortField=grade&sortDir='+${reverseSortDir} ">
 
 										<i class="fas"
-										th:classappend="${sortDir} eq 'asc' ? fa-sort-up : fa-sort-down "></i>
+											th:classappend="${sortDir} eq 'asc' ? fa-sort-up : fa-sort-down "></i>
 										Grade
-								</a></th>
+									</a></th>
 								<th scope="col">Name</th>
 								<th scope="col">Total Students</th>
 								<th scope="col">Scholastic Year</th>
 								<th scope="col">Students List</th>
-								<th scope="col">Teachers/Subjects</th>
+								<th scope="col">Teachers & Subjects</th>
 								<th scope="col"></th>
 
 							</tr>
 						</thead>
 						<tbody class="list">
 							<tr th:each="classe:${classes}">
-
-
-								<td
-									th:text="${classe.grade} eq 0? 'Prepatory' : ${classe.grade}"></td>
+								<td th:text="${classe.grade} eq 0? 'Prepatory' : ${classe.grade}"></td>
 								<td th:text=${classe.classLabel}></td>
 								<td th:text=${classe.students.size()}></td>
 								<td th:text=${classe.scholaticYear}></td>
 
-								<td><a
-									th:href="@{/classes/{id}/studentsList (id = ${classe.idClasse})}"><i
-										class="fas fa-users"></i></a></td>
-								<td><a href="#"><i class="fas fa-chalkboard-teacher"></i></a></td>
+								<td><a th:href="@{/classes/{id}/studentsList (id = ${classe.idClasse})}"><i
+											class="fas fa-users"></i></a></td>
+								<td><a th:href="@{/classes/teachaers-subjects/{id} (id = ${classe.idClasse})}"><i class="fas fa-chalkboard-teacher"></i></a></td>
 								<td class="text-right">
 									<div class="dropdown">
-										<a class="btn btn-sm btn-icon-only text-light" href="#"
-											role="button" data-toggle="dropdown" aria-haspopup="true"
-											aria-expanded="false"> <i class="fas fa-ellipsis-v"></i>
+										<a class="btn btn-sm btn-icon-only text-light" href="#" role="button"
+											data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i
+												class="fas fa-ellipsis-v"></i>
 										</a>
-										<div
-											class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-											<a
-												th:href="@{/classes/getclass/{id} (id=${classe.idClasse}) }"
+										<div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+											<a th:href="@{/classes/getclass/{id} (id=${classe.idClasse}) }"
 												class="dropdown-item editClass"> <i
-												class="fas fa-edit text-default"></i>Edit
+													class="fas fa-edit text-default"></i>Edit
 											</a> <a class="dropdown-item deleteClass"
 												th:href="@{/classes/delete/{id} (id=${classe.idClasse}) }">
 												<i class="fas fa-trash-alt text-red"></i>Delete
@@ -109,33 +97,32 @@
 						</tbody>
 					</table>
 				</div>
+				
 				<!-- Card footer -->
 				<div class="card-footer py-4">
 					<nav aria-label="...">
 						<ul class="pagination justify-content-end mb-0">
-							<li class="page-item "
-								th:classappend="${currentPage} eq 1 ? disabled : enabled"><a
-								class="page-link"
-								th:href="@{/classes/page/{prevPage} +'?sortField='+${sortField}+'&sortDir='+${sortDir}  (prevPage=${currentPage - 1})}"
-								tabindex="-1"> <i class="fas fa-angle-left"></i> <span
-									class="sr-only">Previous</span>
-							</a></li>
-							<span th:each="i: ${#numbers.sequence(1,totalPages)}">
-								<li class="page-item "
-								th:classappend="${currentPage} eq ${i} ? active : ''"><a
+							<li class="page-item " th:classappend="${currentPage} eq 1 ? disabled : enabled"><a
 									class="page-link"
-									th:href="@{'/classes/page/' + ${i}} + '?sortField='+${sortField}+'&sortDir='+${sortDir}  ">[[${i}]]</a>
-							</li>
+									th:href="@{'/classes/page/{prevPage}' +'?sortField='+${sortField}+'&sortDir='+${sortDir}  (prevPage=${currentPage - 1})}"
+									tabindex="-1"> <i class="fas fa-angle-left"></i> <span
+										class="sr-only">Previous</span>
+								</a></li>
+							
+							<span th:each="i: ${#numbers.sequence(1,totalPages)}">
+								<li class="page-item " th:classappend="${currentPage} eq ${i} ? active : ''"><a
+										class="page-link"
+										th:href="@{'/classes/page/' + ${i}} + '?sortField='+${sortField}+'&sortDir='+${sortDir}  ">[[${i}]]</a>
+								</li>
 							</span>
 
 
 
-							<li class="page-item"
-								th:classappend="${currentPage} ge ${totalPages} ? disabled : enabled">
+							<li class="page-item" th:classappend="${currentPage} ge ${totalPages} ? disabled : enabled">
 								<a class="page-link"
-								th:href="@{/classes/page/{prevPage} + '?sortField='+${sortField}+'&sortDir='+${sortDir}  (prevPage=${currentPage - 2})     }">
+									th:href="@{'/classes/page/{prevPage}' + '?sortField='+${sortField}+'&sortDir='+${sortDir}  (prevPage=${currentPage + 1})     }">
 									<i class="fas fa-angle-right"></i> <span class="sr-only">Next</span>
-							</a>
+								</a>
 							</li>
 						</ul>
 					</nav>
@@ -145,4 +132,5 @@
 	</div>
 
 </body>
+
 </html>

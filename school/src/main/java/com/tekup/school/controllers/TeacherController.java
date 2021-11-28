@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.tekup.school.entities.Teacher;
 import com.tekup.school.repository.TeacherRepository;
@@ -23,15 +24,12 @@ public class TeacherController {
 	@Autowired
 	TeacherRepository teacherRepo;
 	
-	/*@GetMapping("/teachers")
-	public String findAllTeachers(Model model) {
+	@GetMapping("/")
+	@ResponseBody
+	public List<Teacher> findAllTeachers(Model model) {
 		
-		List<Teacher> teachers= teacherRepo.findAll();
-		
-		model.addAttribute("teachers", teachers);
-		
-		return "index" ;
-	}*/
+		return teacherRepo.findAll() ;
+	}
 	
 	@DeleteMapping("/delete/{id}")
 	public String deleteTeacher(@PathVariable(value="id") Long id) throws ResourceNotFoundException{
