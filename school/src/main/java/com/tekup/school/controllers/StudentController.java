@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.tekup.school.Role;
 import com.tekup.school.entities.Classe;
@@ -102,12 +102,40 @@ ClasseRepository classeRepository;
 	}
 	
 	
-@GetMapping("/searchclasse/{classe}")
-public String findStudentByClasse(@PathVariable(value="classe") Long classe){
-	
-	List<Student> listeStudent =studentRepository.findByClasse(classeRepository.findById(classe));
-			return "redirect:/"; 
-}
+		@GetMapping("/searchclasse/{classe}")
+		public String findStudentByClasse(@PathVariable(value="classe") Long classe){
+			
+			List<Student> listeStudent =studentRepository.findByClasse(classeRepository.findById(classe));
+					return "redirect:/"; 
+		}
+			/********/
+		@GetMapping("/all")
+		@ResponseBody
+		public List<Student> getAllstudents(){
+			
+			return studentRepository.findAll();
+		}
+		
+		@RequestMapping(value="/updateStudent-classe/{idStudent}/{idClasse}/{idOldClasse}",method = {RequestMethod.PUT, RequestMethod.GET})
+		public String updateStudentClasse(@PathVariable(value="idStudent") Long idStudent
+				, @PathVariable(value="idClasse") Long idClasse
+				, @PathVariable(value="idOldClasse") Long idOldClasse) {
+			
+			Student student = studentRepository.getById(idStudent);
+			if(idClasse != 0) {
+				student.setClasse(classeRepository.getById(idClasse));
+			}else {
+				student.setClasse(null);
+			}
+			
+			studentRepository.save(student);
+			if(idOldClasse !=0) {
+				return "redirect:/classes/"+idOldClasse+"/studentsList";
+			}else {
+				return "redirect:/classes/"+idClasse+"/studentsList";
+			}
+			
+		}
 
 	
 }

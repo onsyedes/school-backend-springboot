@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.tekup.school.entities.Classe;
 import com.tekup.school.entities.Teacher;
@@ -96,6 +97,13 @@ ClasseRepository classeRepository;
 		return "addteacher";
 	}
 	
+	/*********/
+	@GetMapping("teachers/all")
+	@ResponseBody
+	public List<Teacher> findAllTeachers(Model model) {
+		
+		return teacherRepository.findAll() ;
+	}
 	
 
 
