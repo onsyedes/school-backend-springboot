@@ -139,7 +139,7 @@ public class ClasseController {
 	
 	@RequestMapping(value="/delete/{id}", method = {RequestMethod.DELETE, RequestMethod.GET})
 	public String deleteClasse(@PathVariable(value="id") Long id , RedirectAttributes redirectAttr) {
-		List<Student> students= studentRepository.findByClasse(classeRepo.findById(id));
+		List<Student> students= studentRepository.findByClasse(classeRepo.getById(id));
 		if(students.size() == 0) {
 				classServ.deleteClass(id);
 				redirectAttr.addFlashAttribute("result", "ok");

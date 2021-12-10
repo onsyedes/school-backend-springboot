@@ -4,12 +4,11 @@
 
 <head>
 	<meta charset="ISO-8859-1">
-	<title>TimeTables</title>
+	<title>Classes TimeTables</title>
 </head>
 
 <body>
 	<div class="col-lg-6 col-5 text-right" layout:fragment="new_filters">
-		<a href="#" class="btn btn-sm btn-neutral" data-toggle="modal" >New</a> 
 	</div>
 	<!-- Page content -->
 	<div class="row" layout:fragment="page-content">
@@ -27,7 +26,7 @@
 								
 								<th scope="col">Classe</th>
 								<th scope="col"><a
-										th:href="'/emplois/page/'+ ${currentPage}+'?sortField=semester&sortDir='+${reverseSortDir} ">
+										th:href="'/absences/page/'+ ${currentPage}+'?sortField=semester&sortDir='+${reverseSortDir} ">
 
 										<i class="fas"
 											th:classappend="${sortDir} eq 'asc' ? fa-sort-up : fa-sort-down "></i>
@@ -45,7 +44,7 @@
 						<td th:text=${timetab.classe.classLabel}></td>
 								<td th:text=${timetab.semester}></td>
 								<td th:text=${timetab.scholasticYear}></td>
-								<td><a class="btn btn-outline-default" type="button" th:href="@{/emplois/{id} (id=${timetab.id})}">Timetable</a></td>
+								<td><a class="btn btn-primary" type="button" th:href="@{/absences/{id} (id=${timetab.id})}">Absence Registration</a></td>
 							
 								
 							</tr>
@@ -64,7 +63,7 @@
 						<ul class="pagination justify-content-end mb-0">
 							<li class="page-item " th:classappend="${currentPage} eq 1 ? disabled : enabled"><a
 									class="page-link"
-									th:href="@{'/emplois/page/{prevPage}' +'?sortField='+${sortField}+'&sortDir='+${sortDir}  (prevPage=${currentPage - 1})}"
+									th:href="@{'/absences/page/{prevPage}' +'?sortField='+${sortField}+'&sortDir='+${sortDir}  (prevPage=${currentPage - 1})}"
 									tabindex="-1"> <i class="fas fa-angle-left"></i> <span
 										class="sr-only">Previous</span>
 								</a></li>
@@ -72,7 +71,7 @@
 							<span th:each="i: ${#numbers.sequence(1,totalPages)}">
 								<li class="page-item " th:classappend="${currentPage} eq ${i} ? active : ''"><a
 										class="page-link"
-										th:href="@{'/emplois/page/' + ${i}} + '?sortField='+${sortField}+'&sortDir='+${sortDir}  ">[[${i}]]</a>
+										th:href="@{'/absences/page/' + ${i}} + '?sortField='+${sortField}+'&sortDir='+${sortDir}  ">[[${i}]]</a>
 								</li>
 							</span>
 
@@ -80,7 +79,7 @@
 
 							<li class="page-item" th:classappend="${currentPage} ge ${totalPages} ? disabled : enabled">
 								<a class="page-link"
-									th:href="@{'/emplois/page/{prevPage}' + '?sortField='+${sortField}+'&sortDir='+${sortDir}  (prevPage=${currentPage + 1})     }">
+									th:href="@{'/absences/page/{prevPage}' + '?sortField='+${sortField}+'&sortDir='+${sortDir}  (prevPage=${currentPage + 1})     }">
 									<i class="fas fa-angle-right"></i> <span class="sr-only">Next</span>
 								</a>
 							</li>

@@ -270,7 +270,10 @@ $('.deleteField').on('click',function(event){
 	
 	$('#deleteFiledModal').modal();
 });
-
+$('.line').on('click',function(){
+	var data=$(this).data();
+     window.location = '/absences/'+data.id+'/'+data.idfield
+})
 
 });
 

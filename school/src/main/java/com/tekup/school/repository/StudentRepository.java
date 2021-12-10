@@ -14,7 +14,7 @@ import com.tekup.school.entities.Student;
 public interface StudentRepository extends JpaRepository<Student, Long> {
 	
 	List<Student> findByFirstNameContains(String firstname);
-	List<Student> findByClasse(Optional<Classe> optional);
 	Page<Student> findByClasse(Optional<Classe> optional,org.springframework.data.domain.Pageable pageable);
+	List<Student> findByClasse(Classe classe);
 	
 }

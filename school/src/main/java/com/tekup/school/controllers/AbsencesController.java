@@ -2,61 +2,41 @@ package com.tekup.school.controllers;
 
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Optional;
 
 import javax.persistence.Transient;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.tekup.school.entities.Classe;
-import com.tekup.school.entities.Classroom;
-import com.tekup.school.entities.Subject;
-import com.tekup.school.entities.Teacher;
+import com.tekup.school.entities.Student;
 import com.tekup.school.entities.Timetable;
 import com.tekup.school.entities.TimetableFields;
-import com.tekup.school.repository.ClassroomRepository;
-import com.tekup.school.repository.SubjectRepository;
-import com.tekup.school.repository.TeacherRepository;
+import com.tekup.school.repository.StudentRepository;
 import com.tekup.school.repository.TimetableFieldsRepository;
 import com.tekup.school.repository.TimetableRepository;
-import com.tekup.school.services.ClassService;
-import com.tekup.school.services.TimetableFieldsService;
 import com.tekup.school.services.TimetableService;
 
-import org.springframework.ui.Model;
-
 @Controller
-@RequestMapping("/emplois")
-public class EmploiController {
-
-	
-	@Transient
-	LinkedHashMap<String, String> path = new LinkedHashMap<>();
-	@Autowired
-	TimetableRepository timtableRepo;
+@RequestMapping("/absences")
+public class AbsencesController {
 	@Autowired
 	TimetableFieldsRepository timetableFiledsRepo;
 	@Autowired
-	TimetableFieldsService timetabFieldsService;
-	@Autowired
-	SubjectRepository subjectRepo;
-	@Autowired
-	TeacherRepository teacherRepo;
-	@Autowired
-	ClassroomRepository classroomRepo;
-	@Autowired
-	ClassService classServ;
-	
+	TimetableRepository timtableRepo;
 	@Autowired
 	TimetableService timetabService;
+	@Autowired
+	StudentRepository studentRepo;
+	@Transient
+	LinkedHashMap<String, String> path = new LinkedHashMap<>();
 	@GetMapping("/")
 	public String showEmploiClasse(Model model) {
 		return findPaginatedTimeTables(1,"semester","asc", model);
@@ -79,12 +59,11 @@ public class EmploiController {
 		model.addAttribute("totalPages", page.getTotalPages());
 		model.addAttribute("timetables", listeTimetables);
 		path.clear();
-		path.put("TimeTables","/emplois/");
+		path.put("Classes TimeTables","/absences/");
 		model.addAttribute("path", path);
-		return "emploi_classes" ;
+		return "absence_classes" ;
 		
 	}
-
 	@GetMapping("/{id}")
 	public String getTimetableFields(@PathVariable(value="id") Long id ,Model model) {
 		Timetable timetab=timtableRepo.getById(id);
@@ -95,29 +74,21 @@ public class EmploiController {
 		 model.addAttribute("idTimetable", id);
 		 model.addAttribute("path", path);
 		 model.addAttribute("TimetableFields", timetabFields);
-		 return "emploi";
+		 return "absence_session_select";
 	}
-	@PostMapping("/setfield/{id}")
-	public String setTimetableFields(@PathVariable(value="id") Long idTimetab,Long idPerson , Long idSubject ,Long idSalle
-		,String day, int startHour	, RedirectAttributes redirectAttr) {
+	@GetMapping("/{id}/{idField}")
+	public String getStudentsList(@PathVariable(value="id") Long id , @PathVariable(value="idField") Long idField ,Model model) {
+		Timetable timetab= timtableRepo.getById(id);
+		Classe classe=timetab.getClasse();
+		List<Student> students = studentRepo.findByClasse(classe);
+		model.addAttribute("classe", classe);
+		model.addAttribute("students", students);
+		model.addAttribute("idField", idField);
+		model.addAttribute("timetable", id);
+		 path.put(classe.getClassLabel(),"#");
+		 path.put("Semester"+timetab.getSemester(),"#");
+		 model.addAttribute("path", path);
 		
-		Classroom salle=classroomRepo.getById(idSalle);
-		Teacher teacher=teacherRepo.getById(idPerson);
-		Subject subject =subjectRepo.getById(idSubject);
-		Timetable timetab=timetabService.getById(idTimetab);
-		List<TimetableFields> timetabFields= timetableFiledsRepo.findAll();
-		if(timetabFieldsService.save(salle, teacher, timetab, subject, day, startHour, timetabFields)) {
-			redirectAttr.addFlashAttribute("result", "ok");
-		}else {	redirectAttr.addFlashAttribute("result", "error");}
-		return "redirect:/emplois/"+idTimetab;
+		return "absence_registration";
 	}
-	
-	
-	@RequestMapping(value="/delete/{timetab}/{id}",method = {RequestMethod.DELETE, RequestMethod.GET})
-	public String deleteTimetableField(@PathVariable(value="id") Long idTimetabField ,@PathVariable(value="timetab") Long timetab  ) {
-		timetabFieldsService.deleteField(idTimetabField);
-		return "redirect:/emplois/"+timetab;
-	}
-	
-	
 }

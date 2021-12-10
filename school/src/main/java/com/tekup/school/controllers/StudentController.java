@@ -103,7 +103,7 @@ ClasseRepository classeRepository;
 		@GetMapping("/searchclasse/{classe}")
 		public String findStudentByClasse(@PathVariable(value="classe") Long classe){
 			
-			List<Student> listeStudent =studentRepository.findByClasse(classeRepository.findById(classe));
+			List<Student> listeStudent =studentRepository.findByClasse(classeRepository.getById(classe));
 					return "redirect:/"; 
 		}
 			/********/

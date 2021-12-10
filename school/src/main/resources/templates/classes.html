@@ -56,8 +56,8 @@
 								<th scope="col">Name</th>
 								<th scope="col">Total Students</th>
 								<th scope="col">Scholastic Year</th>
-								<th scope="col">Students List</th>
-								<th scope="col">Teachers & Subjects</th>
+								<th scope="col"></th>
+								<th scope="col"></th>
 								<th scope="col"></th>
 
 							</tr>
@@ -69,9 +69,8 @@
 								<td th:text=${classe.students.size()}></td>
 								<td th:text=${classe.scholaticYear}></td>
 
-								<td><a th:href="@{/classes/{id}/studentsList (id = ${classe.idClasse})}"><i
-											class="fas fa-users"></i></a></td>
-								<td><a th:href="@{/classes/teachaers-subjects/{id} (id = ${classe.idClasse})}"><i class="fas fa-chalkboard-teacher"></i></a></td>
+								<td><a th:href="@{/classes/{id}/studentsList (id = ${classe.idClasse})}" type="button" class="btn btn-outline-default">Students List</a></td>
+								<td><a th:href="@{/classes/teachaers-subjects/{id} (id = ${classe.idClasse})}" type="button" class="btn btn-outline-primary">Teachers & Subjects</a></td>
 								<td class="text-right">
 									<div class="dropdown">
 										<a class="btn btn-sm btn-icon-only text-light" href="#" role="button"
