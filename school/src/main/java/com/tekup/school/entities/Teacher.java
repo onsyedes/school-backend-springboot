@@ -31,11 +31,9 @@ import lombok.NoArgsConstructor;
 public class Teacher extends Person {
 	
 	
-	@Column
+
 	private String email;
-	@Column
 	private String pwd;
-	
 	@OneToMany(mappedBy = "teacher")
 	List<SchoolTeaching> schoolTeaching ;
 	

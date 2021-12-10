@@ -18,6 +18,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
@@ -37,6 +38,7 @@ public class Subject {
     @JoinColumn(name="idModule")
     private Module module;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "subject")
 	List<SchoolTeaching> schoolTeaching ;
 	

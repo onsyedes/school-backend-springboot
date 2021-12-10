@@ -16,8 +16,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import com.tekup.school.Role;
 import com.tekup.school.entities.Classe;
 import com.tekup.school.entities.Student;
 import com.tekup.school.repository.ClasseRepository;
@@ -84,7 +82,7 @@ ClasseRepository classeRepository;
 	public String addstudent(@ModelAttribute("student") Student student,@ModelAttribute("classes") Classe classe) {
 		
 		student.setRole("Student");
-		
+	    
 		
 		studentRepository.save(student);
 

@@ -25,12 +25,12 @@
 					<!-- Nav items -->
 					<ul class="navbar-nav">
 						<li class="nav-item"><a class="nav-link active"
-							href="examples/dashboard.html"> <i
+							th:href="@{/}"> <i
 								class="ni ni-tv-2 text-primary"></i> <span class="nav-link-text">Dashboard</span>
 						</a></li>
 
 						<!-- Users -->
-						<div class="btn-group dropright nav-item">
+						<div class="btn-group dropright nav-item"  th:if="${#strings.contains(#authentication.principal.authorities,'ADMIN')}" >
 
 							<button type="button" class="btn _btn  dropdown-toggle"
 								data-toggle="dropdown" aria-haspopup="true"
@@ -44,37 +44,51 @@
 							</div>
 						</div>
 						<!-- Classes -->
-						<li class="nav-item"><a class="nav-link" th:href="@{/classes/}"> <i
+						<div  th:if="${#strings.contains(#authentication.principal.authorities,'ADMIN')}">
+						<li class="nav-item"><a class="nav-link" th:href="@{/classes/}" > <i
 								class="ni ni-building text-primary"></i> <span
 								class="nav-link-text">Classes</span>
 						</a></li>
+						
+						</div>
+						<!-- TimeTables -->
+						<div >
+						<li class="nav-item"><a class="nav-link" th:href="@{/emplois/}" >
+						<i class="fas fa-calendar-alt text-default"></i> <span
+								class="nav-link-text">TimeTables</span>
+						</a></li>
+						
+						</div>
 
 
 						<!-- Absences -->
-						<div class="btn-group dropright nav-item">
+						<div class="btn-group dropright nav-item" >
 
 							<button class="btn _btn dropdown-toggle" data-toggle="dropdown"
 								aria-haspopup="true" aria-expanded="false">
 								<i class="fas fa-calendar-times text-default"></i> <span
 									class="nav-link-text">Absences</span>
 							</button>
-							<div class="dropdown-menu">
-								<a class="dropdown-item" href="#">Students</a> <a
-									class="dropdown-item" href="#">Teachers</a>
+							<div class="dropdown-menu" >
+								<a class="dropdown-item" href="#">Students</a> 
+								<a	class="dropdown-item" href="#"  th:if="${#strings.contains(#authentication.principal.authorities,'ADMIN')}">Teachers</a>
 							</div>
 						</div>
 
 						<!-- Subjects -->
-						<li class="nav-item"><a class="nav-link" href="#"> <i
+						<div  th:if="${#strings.contains(#authentication.principal.authorities,'ADMIN')}">
+						<li class="nav-item"><a class="nav-link" href="#" > <i
 								class="ni ni-ruler-pencil text-info"></i> <span
-								class="nav-link-text">Subjects/Classes</span>
+								class="nav-link-text">Subjects</span>
 						</a></li>
+						</div>
+						
 
 
 
 
 						<!--Events  -->
-						<li class="nav-item"><a class="nav-link" href="#"> <i
+						<li class="nav-item"><a class="nav-link" href="#" > <i
 								class="fas fa-calendar-check text-pink"></i> <span
 								class="nav-link-text">Events</span>
 						</a></li>
@@ -83,43 +97,8 @@
 								class="fas fa-utensils text-yellow"></i> <span
 								class="nav-link-text">Lunch</span>
 						</a></li>
-						<!--  -->
-
-						
 					</ul>
-					<!-- Divider -->
-					<hr class="my-3">
-					<!-- Heading -->
-					<h6 class="navbar-heading p-0 text-muted">
-						<span class="docs-normal">Documentation</span>
-					</h6>
-					<!-- Navigation -->
-					<ul class="navbar-nav mb-md-3">
-						<li class="nav-item"><a class="nav-link"
-							href="https://demos.creative-tim.com/argon-dashboard/docs/getting-started/overview.html"
-							target="_blank"> <i class="ni ni-spaceship"></i> <span
-								class="nav-link-text">Getting started</span>
-						</a></li>
-						<li class="nav-item"><a class="nav-link"
-							href="https://demos.creative-tim.com/argon-dashboard/docs/foundation/colors.html"
-							target="_blank"> <i class="ni ni-palette"></i> <span
-								class="nav-link-text">Foundation</span>
-						</a></li>
-						<li class="nav-item"><a class="nav-link"
-							href="https://demos.creative-tim.com/argon-dashboard/docs/components/alerts.html"
-							target="_blank"> <i class="ni ni-ui-04"></i> <span
-								class="nav-link-text">Components</span>
-						</a></li>
-						<li class="nav-item"><a class="nav-link"
-							href="https://demos.creative-tim.com/argon-dashboard/docs/plugins/charts.html"
-							target="_blank"> <i class="ni ni-chart-pie-35"></i> <span
-								class="nav-link-text">Plugins</span>
-						</a></li>
-						<li class="nav-item"><a class="nav-link active active-pro"
-							href="examples/upgrade.html"> <i class="ni ni-send text-dark"></i>
-								<span class="nav-link-text">Upgrade to PRO</span>
-						</a></li>
-					</ul>
+					
 				</div>
 			</div>
 		</div>

@@ -194,9 +194,83 @@ $('document').ready(function() {
       }
 
 	});
-
-
+$(".editbtn").on('click',function(event){
+	event.preventDefault();
 	
+		var href1 = "/teachers/all";
+		var href2 = "/subjects/all"
+		
+		var i;
+		var select1 = document.createElement('select');
+		var select2 = document.createElement('select');
+		select1.className = "form-control teachers"
+		select1.setAttribute("name", "idPerson")
+		select2.className = "form-control subjects"
+		select2.setAttribute("name", "idSubject")
+		var select3=document.createElement('select');
+		select3.className = "form-control salles"
+		select3.setAttribute("name", "idSalle")
+		//getting Teachers List
+		$.get(href1, function(teachers, status) {
+
+
+			for (i = 0; i < teachers.length; i++) {
+				var option = document.createElement("option");
+				option.value = teachers[i].idPerson;
+				option.text = teachers[i].firstName;
+				select1.appendChild(option);
+			}
+		})
+		//getting subjects List
+		$.get(href2, function(subjects, status) {
+			for (i = 0; i < subjects.length; i++) {
+				var option = document.createElement("option");
+				option.value = subjects[i].idSubject;
+				option.text = subjects[i].subjectLabel;
+				select2.appendChild(option);
+			}
+		})
+		//getting all Clasrooms
+		$.get("/classroom/all", function(salles, status) {
+			for (i = 0; i < salles.length; i++) {
+				var option = document.createElement("option");
+				option.value = salles[i].idSalle;
+				option.text = salles[i].salleLabel;
+				select3.appendChild(option);
+			}
+		})
+		var data=$(this).data();
+		var day=document.createElement("h1");
+		day.appendChild(document.createTextNode(data.day));
+		var hour= document.createElement("h1");
+		
+		hour.appendChild(document.createTextNode(data.starthour+' AM -  '+ parseInt(data.starthour +2)+' AM'));
+		document.getElementById('day').appendChild(day);
+		document.getElementById('startHour').appendChild(hour);
+		document.getElementById('addTeachertoTimetab').appendChild(select1);
+		document.getElementById('addSubjecttoTimetab').appendChild(select2);
+		document.getElementById('addSalletoTimetab').appendChild(select3);
+	    document.getElementById('dayinput').value=data.day;
+	    document.getElementById('starthourinput').value=data.starthour;
+	$('#add_timetableFields').modal();
+});
+$('#add_timetableFields').on('hidden.bs.modal', function (e) {
+ 		$('#day').html('');
+ 		$('#startHour').html('');
+ 		$('#addTeachertoTimetab').html('');
+ 		$('#addSubjecttoTimetab').html('');
+ 		$('#addSalletoTimetab').html('');
+	})
+	
+$('.deleteField').on('click',function(event){
+	event.preventDefault();
+	var href= $(this).attr('href');
+	$('#delteField').attr('href',href);
+	
+	
+	$('#deleteFiledModal').modal();
+});
 
 
 });
+

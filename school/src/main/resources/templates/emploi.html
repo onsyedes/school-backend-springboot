@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/layout.html}">
+
+<head>
+	<meta charset="ISO-8859-1">
+	<title>Timetable</title>
+</head>
+
+<body >
+	<div class="col-lg-6 col-5 text-right" layout:fragment="new_filters">
+	</div>
+	<!-- Page content -->
+	<div class="row" layout:fragment="page-content">
+		<div class="col">
+			<div class="card">
+				<!-- Card header -->
+				<div class="card-header border-0"></div>
+				
+				<!-- Light table -->
+				<div class="limiter">
+				<span th:if="${result} eq 'ok' ">
+						<div class="alert alert-primary alert-dismissible fade show" role="alert">
+							<span class="alert-icon"><i class="ni ni-like-2"></i></span> <span
+								class="alert-text"><strong>Success!</strong> Filed added
+								 successfully</span>
+							<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+
+						</div>
+
+
+					</span>
+					<span th:if="${result} eq 'error'">
+						<div class="alert alert-warning alert-dismissible fade show" role="alert">
+							<span class="alert-icon"><i class="fas fa-exclamation-triangle"></i></span> <span
+								class="alert-text"><strong>Warning!</strong> Cannot
+								add field,<strong>Teacher</strong> or <strong>Classroom</strong> are not available</span>
+							<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+					</span>
+		<div class="container-table100">
+			<div class="wrap-table100">
+				<div class="table100 ver1 m-b-110">
+					<table data-vertable="ver1">
+						<thead>
+							<tr class="row100 head">
+								<th class="column100 column1" data-column="column1"></th>
+								<th class="column100 column2" data-column="column2">8-10</th>
+								<th class="column100 column3" data-column="column3">10-12</th>
+								<th class="column100 column4" data-column="column4">12-13</th>
+								<th class="column100 column5" data-column="column5">13-15</th>
+								<th class="column100 column6" data-column="column6">15-17</th>
+							</tr>
+						</thead>
+						<tbody>
+						
+						 <div th:with="weekDays = ${ {'Monday', 'Tuesday', 'Wednesday','Thursday','Friday','Saturday'} },startHour=${ {8, 10, 12,13,15} }">
+						    <tr class="row100" th:each="i: ${#numbers.sequence(0,5)}" >
+						    <td class="column100 column1"  data-column="column1" th:text="${weekDays.get(i)}">--</td>
+								<div th:each="j: ${#numbers.sequence(2,6)}"  >
+								 <td th:class="'column100 column' +${j}"  th:data-column="'column' +${j}" th:id="${weekDays.get(i)}+ ${startHour.get(j-2)}" >
+								   <th:block th:if="${j} != 4" >
+								    <script th:inline="javascript">
+												  var found=false;
+												</script>
+								    <th:block th:each="field:${TimetableFields}" >
+								    
+									    <div th:if="${weekDays.get(i)} eq ${field.day} and ${startHour.get(j-2)} eq ${field.startHour}" >
+						            		   <script th:inline="javascript">
+													  found=true;
+													</script>
+						            			<span th:text="'-'+${#strings.capitalize(field.teacher.firstName)}+' '+ ${#strings.capitalize(field.teacher.lastName)}"> </span></br>
+						            			<span th:text="'-'+${#strings.capitalize(field.subject.subjectLabel)}"> </span></br>
+						            			<span th:text="'-'+${#strings.capitalize(field.salle.salleLabel)}"> </span>
+						            			<a th:href="@{'/emplois/delete/'+${idTimetable}+'/'+${field.id}}" class="btn btn-warning btn-sm specialbtn deleteField"><i class="far fa-trash-alt" ></i></a>
+						            			
+						            		</div>
+								   
+					            		
+					            		
+					            		
+					            		
+					            		
+				            	   </th:block>
+				            	   
+				            	   <script th:inline="javascript">
+											var day = /*[[${weekDays.get(i)}]]*/ null;
+											var hour = /*[[${startHour.get(j-2)}]]*/ null;
+											var timetab= /*[[${idTimetable}]]*/ null;
+											if(found==false){
+												var html='<span>--</span>';
+												 html+='<a type="button" href="#" class="btn btn-danger btn-sm editbtn specialbtn" data-starthour='+hour+' data-day='+day+' data-timetable='+timetab+'><i class="fas fa-plus"></i></a>';
+												var id=day+hour
+												document.getElementById(id).innerHTML=html;
+												
+											}
+											
+										
+												</script>
+				            	    
+				            	  
+				            	   
+				            	   
+								   </th:block>
+								 </td>
+								</div>
+								
+								
+								
+								
+								
+							<tr>
+						    
+						    </div>
+							
+							
+						</tbody>
+					</table>
+				</div>
+				
+			
+			</div>
+		</div>
+		</div>
+	</div>
+
+</body>
+
+</html>
