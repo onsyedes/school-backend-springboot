@@ -16,5 +16,6 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
 	List<Student> findByFirstNameContains(String firstname);
 	Page<Student> findByClasse(Optional<Classe> optional,org.springframework.data.domain.Pageable pageable);
 	List<Student> findByClasse(Classe classe);
+	List<Student> findByGender(String Gender);
 	
 }

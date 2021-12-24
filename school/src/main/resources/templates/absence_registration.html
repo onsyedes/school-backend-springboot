@@ -22,7 +22,7 @@
 				 	
 				<div class="table-responsive">
 		     
-     				 <button type="button" class="btn btn-default specialbtn" disabled>
+     				 <button type="button" class="btn btn-default specialbtn" id="AbsenceRegister">
      				 Send
      				 </button >
 					<table class="table align-items-center table-flush">
@@ -41,11 +41,11 @@
 						<td><span th:text="${std.firstName}"></span></td>
 						<td>
 							<label class="custom-toggle">
-								  <input type="checkbox" th:value="${std.idPerson}" >
+								  <input type="checkbox" th:value="${std.idPerson}" name="isAbsent">
 								  <span class="custom-toggle-slider rounded-circle"  data-label-off="No" data-label-on="Yes"></span>
 							</label>
 						</td>
-						<td><textarea class="form-control" ></textarea></td>
+						<td><textarea class="form-control" th:data-idstudent="${std.idPerson}" name="remarque"></textarea></td>
 						</tr>
 						
 					

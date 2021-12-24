@@ -84,6 +84,13 @@ public class TimetableFieldsService {
     	 timetabFieldsRepo.deleteById(id);
      }
      
+     public void  deleteTimtablefieldsByTeacher(Long idTeacher) {
+    	 Teacher teacher= teacherRepo.getById(idTeacher);
+    	 List<TimetableFields> listOfFields=timetableFiledsRepo.findByTeacher(teacher);
+    	 for(int i=0;i<listOfFields.size();i++) {
+    		 timetableFiledsRepo.delete(listOfFields.get(i));
+    	 }
+     }
      
      
 }

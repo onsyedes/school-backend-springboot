@@ -7,6 +7,9 @@
 <title>Students list</title>
 </head>
 <body>
+<div class="col-lg-6 col-5 text-right" layout:fragment="new_filters">
+		<a th:href="@{/studentadd}" class="btn btn-sm btn-neutral" >New</a> 
+	</div>
 <!-- Page content -->
    
       <div class="row" layout:fragment="page-content">
@@ -24,8 +27,8 @@
                     <th scope="col" class="sort" data-sort="name">Firstname</th>
                     <th scope="col" class="sort" data-sort="budget">Lastname</th>
                     <th scope="col" class="sort" data-sort="status">Gender</th>
-                     <th scope="col" class="sort" data-sort="status">Class</th>
-                    <th scope="col">Picture</th>
+                     <th scope="col" class="sort" data-sort="status">Delete</th>
+                    <th scope="col">Edit</th>
                     <th scope="col"></th>
                   </tr>
                 </thead>
@@ -38,14 +41,14 @@
                    <td>
                    
                                     <a th:href="@{/delete/{id}(id=${student.idPerson})}"
-                                              class="btn btn-primary">
+                                              class="btn btn-outline-primary">
                                         <i class="fas fa-user-times ml-2"></i>
                                     </a>
                    </td>
                    
                    <td>
 	                                   <a th:href="@{/edit/{id}(id=${student.idPerson})}"
-                                              class="btn btn-primary">
+                                              class="btn btn-outline-primary">
                                         <i class="fas fa-user-edit ml-2"></i>
                                     </a>
                    </td>

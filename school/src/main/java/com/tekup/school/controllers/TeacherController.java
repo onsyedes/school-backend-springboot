@@ -17,9 +17,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.tekup.school.entities.Classe;
 import com.tekup.school.entities.Teacher;
+import com.tekup.school.entities.TimetableFields;
 import com.tekup.school.repository.ClasseRepository;
 import com.tekup.school.repository.TeacherRepository;
 import com.tekup.school.services.TeacherService;
+import com.tekup.school.services.TimetableFieldsService;
 
 @Controller
 @RequestMapping("/")
@@ -32,8 +34,11 @@ public class TeacherController {
 	ClasseRepository classeRepository;
 	@Autowired
 	TeacherService teacherService;
+	@Autowired
+	TimetableFieldsService timetabFieldsService;
+	
 
-	@GetMapping("/teacherslist")
+	@GetMapping("teacherslist")
 	public String findAllteachers(Model model) {
 
 		List<Teacher> teachers = teacherRepository.findAll();
@@ -47,6 +52,7 @@ public class TeacherController {
 	public String deleteteacher(@PathVariable(value = "id") Long id) throws ResourceNotFoundException {
 		Teacher teacher = teacherRepository.findById(id)
 				.orElseThrow(() -> new ResourceNotFoundException("teacher not found for this id " + id));
+		timetabFieldsService.deleteTimtablefieldsByTeacher(id);
 		teacherRepository.delete(teacher);
 		return "redirect:/";
 
@@ -76,7 +82,7 @@ public class TeacherController {
 		return "redirect:/";
 	}
 
-	@RequestMapping("/teacheradd")
+	@RequestMapping("teacheradd")
 	public String teacheradd(Model model) {
 		Teacher teacher = new Teacher();
 		List<Classe> classes = classeRepository.findAll();
@@ -85,7 +91,7 @@ public class TeacherController {
 
 		return "addteacher";
 	}
-    @PostMapping("/addTeacher/")
+    @PostMapping("addTeacher/")
     @ResponseBody
     public void addteacher(@RequestBody Teacher teacher) {
     	teacherService.Save(teacher);
@@ -94,7 +100,7 @@ public class TeacherController {
 	@GetMapping("teachers/all")
 	@ResponseBody
 	public List<Teacher> findAllTeachers() {
-
+		
 		return teacherRepository.findAll();
 	}
 

@@ -1,6 +1,35 @@
 
+function getCheckedBoxes(chkboxName) {
+  var checkboxes = document.getElementsByName(chkboxName);
+  var checkboxesChecked = [];
+  // loop over them all
+  for (var i=0; i<checkboxes.length; i++) {
+     // And stick the checked ones onto an array...
+     if (checkboxes[i].checked) {
+        checkboxesChecked.push(checkboxes[i].value);
+     }
+  }
+  // Return the array if it is non-empty, or null
+  return checkboxesChecked.length > 0 ? checkboxesChecked : null;
+}
+function getRemarks(){
+	var texareas=document.getElementsByName("remarque");
+	var remarques =[];
+	  // loop over them all
+  for (var i=0; i<texareas.length; i++) {
+     // And stick the not empty ones onto an array...
+     if (texareas[i].value !='') {
+        remarques.push(texareas[i]);
+     }
+  }
+    return remarques.length > 0 ? remarques : null;
+
+}
 
 $('document').ready(function() {
+	
+	
+	
 	var count = 0;
 	$('.editClass').on('click', function(event) {
 		event.preventDefault();
@@ -274,6 +303,35 @@ $('.line').on('click',function(){
 	var data=$(this).data();
      window.location = '/absences/'+data.id+'/'+data.idfield
 })
+/****** */
+
+
+$('#AbsenceRegister').on('click',function(){
+	var absentStudents= getCheckedBoxes("isAbsent");
+	var remarques = getRemarks();
+	const myMap = new Map();
+	if(remarques!=null){
+		for(var i=0;i<remarques.length;i++){
+		myMap.set(remarques[i].dataset.idstudent,remarques[i].value);
+	}
+	}
+	$.ajax({
+		  type: 'GET', 
+		  url: serviceEndpoint,
+		  dataType: 'json',
+		  contentType: 'json',
+		  headers: { 'api-key':'myKey' },
+		  success: onSuccess,
+		  error: onFailure
+		});
+			
+});
+
+
+
+
+
+
 
 });
 

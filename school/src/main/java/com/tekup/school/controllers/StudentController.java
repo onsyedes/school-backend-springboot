@@ -32,7 +32,7 @@ StudentRepository studentRepository;
 ClasseRepository classeRepository;
 
 
-@GetMapping("/list")
+@GetMapping("list")
 	public String findAllstudents(Model model) {
 		
 		List<Student> students= studentRepository.findAll();
@@ -46,6 +46,7 @@ ClasseRepository classeRepository;
 	public String deleteStudent(@PathVariable(value="id") Long id) throws ResourceNotFoundException{
 		Student student = studentRepository.findById(id).orElseThrow(
 				()-> new ResourceNotFoundException("student not found for this id "+id));
+		
 		studentRepository.delete(student);
 		return "redirect:/";
 		
@@ -89,7 +90,7 @@ ClasseRepository classeRepository;
 		return "redirect:/";
 	}
 	
-	@RequestMapping("/studentadd")
+	@RequestMapping("studentadd")
 	public String studentadd(Model model) {
 		Student student = new Student();
 		List<Classe> classes =  classeRepository.findAll();
